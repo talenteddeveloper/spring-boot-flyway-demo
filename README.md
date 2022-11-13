@@ -41,7 +41,28 @@ Migrations can either be versioned or repeatable. The former has a unique versio
 ```bash
   mvn spring-boot:run
 ```
-    
+## Flyway Files
+#### V1__init.sql
+
+```bash
+CREATE TABLE users (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  username varchar(100) NOT NULL,
+  first_name varchar(50) NOT NULL,
+  last_name varchar(50) DEFAULT NULL,
+  age int(4) DEFAULT NULL,
+  PRIMARY KEY (id),
+  UNIQUE KEY UK_username (username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+#### V2__insertdata.sql
+```bash
+INSERT INTO users(username, first_name, last_name, age) VALUES('sachin', 'Sachin', 'Tendulkar', 49);
+INSERT INTO users(username, first_name, last_name, age) VALUES('virat', 'Viral', 'Kohli', 33);
+INSERT INTO users(username, first_name, last_name, age) VALUES('dhoni', 'MS', 'Dhoni', 41);
+```
+
 ## How does Flyway manage migrations?
 Flyway creates a table called `flyway_schema_history`  when it runs the migration for the first time and stores all the meta-data required for versioning the migrations in this table.
 You can check the contents of  `flyway_schema_history `table in your mysql database
